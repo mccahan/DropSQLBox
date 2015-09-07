@@ -10,11 +10,10 @@ When developing websites locally on my OS X machine, I find myself frequently cr
 * Execute a `vagrant up` (you must already have [Vagrant](https://www.vagrantup.com/) installed)
 * Once the command completes, you may connect to the server with the following MySQL details:
 
-**MySQL Server**: 127.0.0.1
-
-**MySQL User**: root
-
-**MySQL Password**: root
+**MySQL Server**: 127.0.0.1  
+**MySQL Port**: 33060  
+**MySQL User**: root  
+**MySQL Password**: root  
 
 ## Storage
 
