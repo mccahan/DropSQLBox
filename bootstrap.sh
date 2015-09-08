@@ -37,4 +37,7 @@ task
 exec /vagrant/export.sh
 EOF
 
+# Create .my.cnf file for convenience/laziness
+/usr/bin/printf "[client]\nuser=root\npassword=root" > /home/vagrant/.my.cnf
+
 echo "Provisioning complete"
