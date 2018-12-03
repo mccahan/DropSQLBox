@@ -10,10 +10,20 @@ sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password_again p
 # Install the MySQL server and listen on all IPs
 sudo apt-get install -y mysql-server
 sudo sed -i.bak s/bind-address/#bind-address/g /etc/mysql/my.cnf
+sudo sed -i -e 's/127.0.0.1/0.0.0.0/g' /etc/mysql/mysql.conf.d/mysqld.cnf
 sudo service mysql restart
 
 # Allow remote root access
 mysql -u root -proot mysql -e "GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'root' WITH GRANT OPTION;"
+
+sudo service mysql stop
+sudo mkdir /etc/systemd/system/mysql.service.d
+cat << EOF | sudo tee /etc/systemd/system/mysql.service.d/start-stop.conf
+[Service]
+ExecStartPost=/vagrant/import.sh
+ExecStopPre=/vagrant/export.sh
+EOF
+sudo systemctl daemon-reload
 
 # Add the import/export scripts
 cat << EOF | sudo tee /etc/init/mysql-up.conf
